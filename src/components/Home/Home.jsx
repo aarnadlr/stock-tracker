@@ -27,7 +27,7 @@ export default function Home() {
       <div style={{ padding: '40px 0' }}>This is the homepage.</div>
 
       <form>
-        <label htmlFor="query">Please enter a stock symbol</label>
+        <label htmlFor="query">Please enter a stock symbol. Filtered results will appear below.</label>
         <br />
         <input
           style={{
@@ -57,12 +57,12 @@ export default function Home() {
         {apiData &&
           apiData.bestMatches.map((item, index) => (
 
-            <Link to={`/${item && item['1. symbol']}`}>
-              <li style={{ margin: '16px', padding: 0 }} key={index}>
+            <Link to={`/${item && item['1. symbol']}`} key={index}>
+              <li style={{ margin: '16px', padding: 0 }} >
                 {item && item['1. symbol']}
               </li>
             </Link>
-            
+
           ))}
       </ul>
     </div>
