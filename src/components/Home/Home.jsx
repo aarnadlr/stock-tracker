@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Home() {
+export default function Home({favorites}) {
   const [apiData, setApiData] = useState();
   const [query, setQuery] = useState('');
 
+
   const apikey = '2PMRI8QK3GQP6LUL';
-  
+
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
     query ? query : 'A'
   }&apikey=${apikey}`;
@@ -26,7 +27,19 @@ export default function Home() {
   return (
     <div>
 
-      <form style={{ padding: '80px 0 0 0' }}>
+      <div style={{width:'200px', border:'1px solid gray', padding:'8px', margin:'16px auto'}}>
+      <span>Your Favorite Stocks:</span>
+
+      <ul style={{listStyle: 'none', padding: 0}}>
+      {
+        favorites.map((item, index)=>(
+        <li key={index}>{item}</li>
+        ))
+      }
+      </ul>
+      </div>
+
+      <form style={{ padding: '40px 0 0 0' }}>
         <label htmlFor="query">Please enter a stock symbol. Filtered results will appear below.</label>
         <br />
         <input

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { openOrClosed } from './utils/isOpenOrClosed';
 import Moment from 'react-moment';
@@ -7,6 +7,17 @@ import Home from './components/Home/Home';
 import StockPage from './components/StockPage/StockPage';
 
 function App() {
+
+  // favorites === array of stock symbols
+  const [favorites, setFavorites] = useState([]);
+
+  const handleFavoriteClick = (symbol)=>{
+    setFavorites([
+      ...favorites,
+      symbol
+    ])
+  }
+
   return (
     <Router>
       <div className="App">
@@ -19,14 +30,11 @@ function App() {
         </p>
 
         <Switch>
-
-          <Route path="/:symbol" children={<StockPage />} />
+          <Route path="/:symbol" children={<StockPage favorites={favorites} handleFavoriteClick={handleFavoriteClick} />} />
 
           <Route path="/">
-            <Home />
+            <Home favorites={favorites} />
           </Route>
-
-          
         </Switch>
       </div>
     </Router>
