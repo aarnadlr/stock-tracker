@@ -7,7 +7,7 @@ export default function StockPage() {
   return (
     <>
       <div style={{ margin: '40px 0' }}>
-        This is the stock page for stock symbol{' '}
+        This is the stock page for stock symbol:
       </div>
 
       <h1 style={{ margin: '40px 0' }}>{symbol.toUpperCase()}</h1>

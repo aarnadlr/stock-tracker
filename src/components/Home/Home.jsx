@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div>
 
-      <form style={{ padding: '80px 0' }}>
+      <form style={{ padding: '80px 0 0 0' }}>
         <label htmlFor="query">Please enter a stock symbol. Filtered results will appear below.</label>
         <br />
         <input
@@ -52,7 +52,7 @@ export default function Home() {
         </button>
       </form>
 
-      <ul style={{ listStyle: 'none', margin: '16px', padding: 0 }}>
+      <ul style={{ listStyle: 'none', margin: '16px', padding: 0, fontSize:'20px' }}>
         {apiData &&
           apiData.bestMatches.map((item, index) => (
 
