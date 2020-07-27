@@ -24,9 +24,8 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{ padding: '40px 0' }}>This is the homepage.</div>
 
-      <form>
+      <form style={{ padding: '80px 0' }}>
         <label htmlFor="query">Please enter a stock symbol. Filtered results will appear below.</label>
         <br />
         <input
