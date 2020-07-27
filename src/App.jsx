@@ -7,26 +7,25 @@ import Home from './components/Home/Home';
 import StockPage from './components/StockPage/StockPage';
 
 function App() {
-
   const [query, setQuery] = useState('');
+
+  // data fetched on click
+  const [apiData, setApiData] = useState();
+
+  // array of stock symbols
+  const [favorites, setFavorites] = useState([]);
+
+  const [selectedItem, setSelectedItem] = useState('');
+
   const apikey = '2PMRI8QK3GQP6LUL';
 
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
     query ? query : '123456'
   }&apikey=${apikey}`;
 
-
-
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
-
-
-  // data fetched on click
-  const [apiData, setApiData] = useState();
-
-  // favorites === array of stock symbols
-  const [favorites, setFavorites] = useState([]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -36,29 +35,25 @@ function App() {
       .then((data) => setApiData(data));
   };
 
-
-  const handleFavoriteClick = (symbol)=>{
-
-    if(favorites.includes(symbol)){
-
+  const handleFavoriteClick = (symbol) => {
+    if (favorites.includes(symbol)) {
       setFavorites([
-        ...favorites.filter((item)=>{
-          return item !== symbol
-        })
+        ...favorites.filter((item) => {
+          return item !== symbol;
+        }),
       ]);
-
-    }else{
-
-      setFavorites([
-        ...favorites,
-        symbol
-      ]);
+    } else {
+      setFavorites([...favorites, symbol]);
     }
-  }
+  };
 
-  const handleClearFavorites = ()=>{
-    setFavorites([])
-  }
+  const handleClearFavorites = () => {
+    setFavorites([]);
+  };
+
+  const saveSelectedItem = (item) => {
+    setSelectedItem(item);
+  };
 
   return (
     <Router>
@@ -72,10 +67,27 @@ function App() {
         </p>
 
         <Switch>
-          <Route path="/:symbol" children={<StockPage favorites={favorites} handleFavoriteClick={handleFavoriteClick} />} />
+          <Route
+            path="/:symbol"
+            children={
+              <StockPage
+                selectedItem={selectedItem}
+                favorites={favorites}
+                handleFavoriteClick={handleFavoriteClick}
+              />
+            }
+          />
 
           <Route path="/">
-            <Home apiData={apiData} handleInputChange={handleInputChange} query={query} handleClick={handleClick} favorites={favorites} handleClearFavorites={handleClearFavorites} />
+            <Home
+              saveSelectedItem={saveSelectedItem}
+              apiData={apiData}
+              handleInputChange={handleInputChange}
+              query={query}
+              handleClick={handleClick}
+              favorites={favorites}
+              handleClearFavorites={handleClearFavorites}
+            />
           </Route>
         </Switch>
       </div>

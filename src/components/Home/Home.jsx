@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Home({apiData, handleInputChange, query, handleClick, favorites, handleClearFavorites }) {
-  
-  // const [query, setQuery] = useState('');
-
-
-
-  // const handleInputChange = (e) => {
-  //   setQuery(e.target.value);
-  // };
+export default function Home({
+  saveSelectedItem,
+  apiData,
+  handleInputChange,
+  query,
+  handleClick,
+  favorites,
+  handleClearFavorites,
+}) {
 
   return (
     <div>
@@ -82,7 +82,11 @@ export default function Home({apiData, handleInputChange, query, handleClick, fa
       >
         {apiData &&
           apiData.bestMatches.map((item, index) => (
-            <Link to={`/${item && item['1. symbol']}`} key={index}>
+            <Link
+              onClick={() => saveSelectedItem(item)}
+              to={`/${item && item['1. symbol']}`}
+              key={index}
+            >
               <li style={{ margin: '16px', padding: 0 }}>
                 {item && item['1. symbol']}
               </li>
@@ -90,12 +94,11 @@ export default function Home({apiData, handleInputChange, query, handleClick, fa
           ))}
       </ul>
 
-      {
-        (apiData &&
-        apiData.bestMatches.length <= 0) && (
-          <p style={{fontWeight:600, color:'red'}}>Error. Your query returned no results. </p>
-        )
-      }
+      {apiData && apiData.bestMatches.length <= 0 && (
+        <p style={{ fontWeight: 600, color: 'red' }}>
+          Error. Your query returned no results.{' '}
+        </p>
+      )}
     </div>
   );
 }

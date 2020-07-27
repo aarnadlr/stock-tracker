@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-export default function StockPage({ favorites, handleFavoriteClick }) {
+export default function StockPage({
+  selectedItem,
+  favorites,
+  handleFavoriteClick,
+}) {
   let { symbol } = useParams();
 
   const [apiData, setApiData] = useState();
 
   const apikey = '2PMRI8QK3GQP6LUL';
-  
+
   useEffect(() => {
-    
     const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
     fetch(url)
       .then((res) => res.json())
@@ -26,31 +29,58 @@ export default function StockPage({ favorites, handleFavoriteClick }) {
 
       {favorites && favorites.includes(symbol) ? (
         <button
-        onClick={() => handleFavoriteClick(symbol)}
-        style={{ margin: '8px 0', backgroundColor: 'white', border: '1px solid lightslategray', height:'48px', width:'260px', fontSize: '16px'  }}
-      >
+          onClick={() => handleFavoriteClick(symbol)}
+          style={{
+            margin: '8px 0',
+            backgroundColor: 'white',
+            border: '1px solid lightslategray',
+            height: '48px',
+            width: '260px',
+            fontSize: '16px',
+          }}
+        >
           <span role="img" aria-label="star">
             ⭐️
           </span>{' '}
           Favorited! Click to unfavorite.
         </button>
       ) : (
-
         <button
           onClick={() => handleFavoriteClick(symbol)}
-          style={{ margin: '8px 0', height:'48px', width:'190px', backgroundColor: 'white', border: '1px solid lightslategray', fontSize: '16px' }}
+          style={{
+            margin: '8px 0',
+            height: '48px',
+            width: '190px',
+            backgroundColor: 'white',
+            border: '1px solid lightslategray',
+            fontSize: '16px',
+          }}
         >
           Favorite this stock
         </button>
-
       )}
 
-      <h4 style={{margin:'40px 0 0 0'}}>Opening price: {apiData && apiData['Global Quote'] && apiData['Global Quote']['02. open']}</h4>
-      <h4>Current price: {apiData && apiData['Global Quote'] && apiData['Global Quote']['05. price']}</h4>
-      <h4>
+      <p style={{ margin: '40px 0 0 0' }}>
+        Full Company Name: <strong>{selectedItem && selectedItem['2. name']}</strong>
+      </p>
+      <p>
+        Opening price:{' '}
+        <strong>{apiData &&
+          apiData['Global Quote'] &&
+          apiData['Global Quote']['02. open']}</strong>
+      </p>
+      <p>
+        Current price:{' '}
+        <strong>{apiData &&
+          apiData['Global Quote'] &&
+          apiData['Global Quote']['05. price']}</strong>
+      </p>
+      <p>
         Previous closing price:{' '}
-        {apiData && apiData['Global Quote']['08. previous close']}
-      </h4>
+        <strong>{apiData &&
+          apiData['Global Quote'] &&
+          apiData['Global Quote']['08. previous close']}</strong>
+      </p>
 
       <br />
       <Link to="/">Back Home</Link>
