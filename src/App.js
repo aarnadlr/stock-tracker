@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { openOrClosed } from './utils/isOpenOrClosed';
+import Moment from 'react-moment';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>
+        Today is{' '}
+        <strong>
+          <Moment date={Date.now()} format="dddd" />
+        </strong>{' '}
+        and the market is <strong>{openOrClosed}</strong>
+      </p>
     </div>
   );
 }
