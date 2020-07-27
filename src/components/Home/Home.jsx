@@ -8,7 +8,7 @@ export default function Home({ favorites, handleClearFavorites }) {
   const apikey = '2PMRI8QK3GQP6LUL';
 
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
-    query ? query : 'A'
+    query ? query : '123456'
   }&apikey=${apikey}`;
 
   const handleClick = (e) => {
@@ -38,7 +38,7 @@ export default function Home({ favorites, handleClearFavorites }) {
             <span>Your Favorite Stocks:</span>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {favorites.map((item, index) => (
-                <li key={index} style={{ fontSize: '18px' }}>
+                <li key={index} style={{ fontSize: '20px' }}>
                   <strong>{item}</strong>
                 </li>
               ))}
@@ -101,6 +101,13 @@ export default function Home({ favorites, handleClearFavorites }) {
             </Link>
           ))}
       </ul>
+
+      {
+        (apiData &&
+        apiData.bestMatches.length <= 0) && (
+          <p style={{fontWeight:600, color:'red'}}>Error. Your query returned no results. </p>
+        )
+      }
     </div>
   );
 }
