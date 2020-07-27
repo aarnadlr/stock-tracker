@@ -30,6 +30,10 @@ function App() {
     }
   }
 
+  const handleClearFavorites = ()=>{
+    setFavorites([])
+  }
+
   return (
     <Router>
       <div className="App">
@@ -45,7 +49,7 @@ function App() {
           <Route path="/:symbol" children={<StockPage favorites={favorites} handleFavoriteClick={handleFavoriteClick} />} />
 
           <Route path="/">
-            <Home favorites={favorites} />
+            <Home favorites={favorites} handleClearFavorites={handleClearFavorites} />
           </Route>
         </Switch>
       </div>

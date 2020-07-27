@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Home({ favorites }) {
+export default function Home({ favorites, handleClearFavorites }) {
   const [apiData, setApiData] = useState();
   const [query, setQuery] = useState('');
 
@@ -25,8 +25,6 @@ export default function Home({ favorites }) {
 
   return (
     <div>
-
-
       <div
         style={{
           width: '200px',
@@ -35,29 +33,29 @@ export default function Home({ favorites }) {
           margin: '16px auto',
         }}
       >
-        {
-          favorites && favorites.length >= 1 ?(
-
-            <>
+        {favorites && favorites.length >= 1 ? (
+          <>
             <span>Your Favorite Stocks:</span>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-          {favorites.map((item, index) => (
-            <li key={index} style={{fontSize:'18px'}} ><strong>{item}</strong></li>
-          ))}
-        </ul>
-        </>
-          ):(
-            <span>Your Favorite Stocks will appear here</span>
-          )
-        
-        }
-
-        
+              {favorites.map((item, index) => (
+                <li key={index} style={{ fontSize: '18px' }}>
+                  <strong>{item}</strong>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <span>Your Favorite Stocks will appear here</span>
+        )}
       </div>
 
+      {favorites && favorites.length >= 1 && (
+        <button onClick={handleClearFavorites} style={{ fontSize: '13px' }}>
+          tap here to clear your favorites
+        </button>
+      )}
 
-
-      <form style={{ padding: '40px 0 0 0' }}>
+      <form style={{ padding: '48px 0 0 0' }}>
         <label htmlFor="query">
           Please enter a stock symbol. Filtered results will appear below.
         </label>
