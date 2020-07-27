@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 export default function StockPage({
+  apiData,
   selectedItem,
   favorites,
   handleFavoriteClick,
 }) {
   let { symbol } = useParams();
 
-  const [apiData, setApiData] = useState();
+  const [globalQuoteData, setGlobalQuoteData] = useState();
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
@@ -16,8 +17,22 @@ export default function StockPage({
     const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setApiData(data));
+      .then((data) => setGlobalQuoteData(data));
   }, []);
+
+  const getCompanyName = (symbol) => {
+    console.log('symbol:', symbol);
+
+    const selectedObj =
+      apiData &&
+      apiData.bestMatches &&
+      apiData.bestMatches.find((item) => item['1. symbol'] === symbol);
+
+    const companyName = selectedObj && selectedObj['2. name'];
+
+    console.log('companyName:', companyName);
+    return companyName;
+  };
 
   return (
     <>
@@ -61,25 +76,33 @@ export default function StockPage({
       )}
 
       <p style={{ margin: '40px 0 0 0' }}>
-        Full Company Name: <strong>{selectedItem && selectedItem['2. name']}</strong>
+        {/* Full Company Name: <strong>{selectedItem && selectedItem['2. name']}</strong> */}
+        {/* Full Company Name: <strong>{getCompanyName()}</strong> */}
+        Full Company Name: <strong>{getCompanyName(symbol)}</strong>
       </p>
       <p>
         Opening price:{' '}
-        <strong>{apiData &&
-          apiData['Global Quote'] &&
-          apiData['Global Quote']['02. open']}</strong>
+        <strong>
+          {globalQuoteData &&
+            globalQuoteData['Global Quote'] &&
+            globalQuoteData['Global Quote']['02. open']}
+        </strong>
       </p>
       <p>
         Current price:{' '}
-        <strong>{apiData &&
-          apiData['Global Quote'] &&
-          apiData['Global Quote']['05. price']}</strong>
+        <strong>
+          {globalQuoteData &&
+            globalQuoteData['Global Quote'] &&
+            globalQuoteData['Global Quote']['05. price']}
+        </strong>
       </p>
       <p>
         Previous closing price:{' '}
-        <strong>{apiData &&
-          apiData['Global Quote'] &&
-          apiData['Global Quote']['08. previous close']}</strong>
+        <strong>
+          {globalQuoteData &&
+            globalQuoteData['Global Quote'] &&
+            globalQuoteData['Global Quote']['08. previous close']}
+        </strong>
       </p>
 
       <br />

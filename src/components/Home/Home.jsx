@@ -10,7 +10,6 @@ export default function Home({
   favorites,
   handleClearFavorites,
 }) {
-
   return (
     <div>
       <div

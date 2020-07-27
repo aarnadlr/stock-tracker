@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import StockPage from './components/StockPage/StockPage';
 
 function App() {
+  
   const [query, setQuery] = useState('');
 
   // data fetched on click
@@ -71,6 +72,7 @@ function App() {
             path="/:symbol"
             children={
               <StockPage
+                apiData={apiData}
                 selectedItem={selectedItem}
                 favorites={favorites}
                 handleFavoriteClick={handleFavoriteClick}
