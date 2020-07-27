@@ -21,7 +21,6 @@ export default function StockPage({
   }, []);
 
   const getCompanyName = (symbol) => {
-    console.log('symbol:', symbol);
 
     const selectedObj =
       apiData &&

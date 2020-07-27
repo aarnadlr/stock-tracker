@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { openOrClosed } from './utils/isOpenOrClosed';
 import Moment from 'react-moment';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home/Home';
 import StockPage from './components/StockPage/StockPage';
+import createPersistedState from 'use-persisted-state';
+const usePersistedQueryState = createPersistedState('query');
+const usePersistedApiDataState = createPersistedState('apiData');
+const usePersistedFavoritesState = createPersistedState('favorites');
+const usePersistedSelectedItemState = createPersistedState('selectedItem');
 
 function App() {
-  
-  const [query, setQuery] = useState('');
+
+  const [query, setQuery] = usePersistedQueryState(null);
 
   // data fetched on click
-  const [apiData, setApiData] = useState();
+  const [apiData, setApiData] = usePersistedApiDataState(null);
 
   // array of stock symbols
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = usePersistedFavoritesState([]);
 
-  const [selectedItem, setSelectedItem] = useState('');
+  const [selectedItem, setSelectedItem] = usePersistedSelectedItemState(null);
+
+  useEffect(()=>{
+    setQuery(null);
+    setApiData(null);
+  },[]);
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
@@ -37,7 +47,7 @@ function App() {
   };
 
   const handleFavoriteClick = (symbol) => {
-    if (favorites.includes(symbol)) {
+    if (favorites && favorites.includes(symbol)) {
       setFavorites([
         ...favorites.filter((item) => {
           return item !== symbol;
