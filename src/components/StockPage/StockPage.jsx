@@ -7,9 +7,10 @@ export default function StockPage({ favorites, handleFavoriteClick }) {
   const [apiData, setApiData] = useState();
 
   const apikey = '2PMRI8QK3GQP6LUL';
-  const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
-
+  
   useEffect(() => {
+    
+    const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setApiData(data));
@@ -44,8 +45,8 @@ export default function StockPage({ favorites, handleFavoriteClick }) {
 
       )}
 
-      <h4 style={{margin:'40px 0 0 0'}}>Opening price: {apiData && apiData['Global Quote']['02. open']}</h4>
-      <h4>Current price: {apiData && apiData['Global Quote']['05. price']}</h4>
+      <h4 style={{margin:'40px 0 0 0'}}>Opening price: {apiData && apiData['Global Quote'] && apiData['Global Quote']['02. open']}</h4>
+      <h4>Current price: {apiData && apiData['Global Quote'] && apiData['Global Quote']['05. price']}</h4>
       <h4>
         Previous closing price:{' '}
         {apiData && apiData['Global Quote']['08. previous close']}

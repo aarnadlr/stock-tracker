@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Home({ favorites, handleClearFavorites }) {
-  const [apiData, setApiData] = useState();
-  const [query, setQuery] = useState('');
+export default function Home({apiData, handleInputChange, query, handleClick, favorites, handleClearFavorites }) {
+  
+  // const [query, setQuery] = useState('');
 
-  const apikey = '2PMRI8QK3GQP6LUL';
 
-  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
-    query ? query : '123456'
-  }&apikey=${apikey}`;
 
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setApiData(data));
-  };
-
-  const handleInputChange = (e) => {
-    setQuery(e.target.value);
-  };
+  // const handleInputChange = (e) => {
+  //   setQuery(e.target.value);
+  // };
 
   return (
     <div>

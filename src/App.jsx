@@ -8,8 +8,34 @@ import StockPage from './components/StockPage/StockPage';
 
 function App() {
 
+  const [query, setQuery] = useState('');
+  const apikey = '2PMRI8QK3GQP6LUL';
+
+  const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
+    query ? query : '123456'
+  }&apikey=${apikey}`;
+
+
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+
+  // data fetched on click
+  const [apiData, setApiData] = useState();
+
   // favorites === array of stock symbols
   const [favorites, setFavorites] = useState([]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setApiData(data));
+  };
+
 
   const handleFavoriteClick = (symbol)=>{
 
@@ -49,7 +75,7 @@ function App() {
           <Route path="/:symbol" children={<StockPage favorites={favorites} handleFavoriteClick={handleFavoriteClick} />} />
 
           <Route path="/">
-            <Home favorites={favorites} handleClearFavorites={handleClearFavorites} />
+            <Home apiData={apiData} handleInputChange={handleInputChange} query={query} handleClick={handleClick} favorites={favorites} handleClearFavorites={handleClearFavorites} />
           </Route>
         </Switch>
       </div>
