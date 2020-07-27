@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Home({favorites}) {
+export default function Home({ favorites }) {
   const [apiData, setApiData] = useState();
   const [query, setQuery] = useState('');
-
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
@@ -27,20 +26,41 @@ export default function Home({favorites}) {
   return (
     <div>
 
-      <div style={{width:'200px', border:'1px solid gray', padding:'8px', margin:'16px auto'}}>
-      <span>Your Favorite Stocks:</span>
 
-      <ul style={{listStyle: 'none', padding: 0}}>
-      {
-        favorites.map((item, index)=>(
-        <li key={index}>{item}</li>
-        ))
-      }
-      </ul>
+      <div
+        style={{
+          width: '200px',
+          border: '1px solid gray',
+          padding: '16px',
+          margin: '16px auto',
+        }}
+      >
+        {
+          favorites && favorites.length >= 1 ?(
+
+            <>
+            <span>Your Favorite Stocks:</span>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+          {favorites.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+        </>
+          ):(
+            <span>Your Favorite Stocks will appear here</span>
+          )
+        
+        }
+
+        
       </div>
 
+
+
       <form style={{ padding: '40px 0 0 0' }}>
-        <label htmlFor="query">Please enter a stock symbol. Filtered results will appear below.</label>
+        <label htmlFor="query">
+          Please enter a stock symbol. Filtered results will appear below.
+        </label>
         <br />
         <input
           style={{
@@ -66,16 +86,21 @@ export default function Home({favorites}) {
         </button>
       </form>
 
-      <ul style={{ listStyle: 'none', margin: '16px', padding: 0, fontSize:'20px' }}>
+      <ul
+        style={{
+          listStyle: 'none',
+          margin: '16px',
+          padding: 0,
+          fontSize: '20px',
+        }}
+      >
         {apiData &&
           apiData.bestMatches.map((item, index) => (
-
             <Link to={`/${item && item['1. symbol']}`} key={index}>
-              <li style={{ margin: '16px', padding: 0 }} >
+              <li style={{ margin: '16px', padding: 0 }}>
                 {item && item['1. symbol']}
               </li>
             </Link>
-
           ))}
       </ul>
     </div>

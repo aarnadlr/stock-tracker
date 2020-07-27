@@ -24,14 +24,26 @@ export default function StockPage({ favorites, handleFavoriteClick }) {
       <h1 style={{ margin: '40px 0 8px 0' }}>{symbol.toUpperCase()}</h1>
 
       {favorites && favorites.includes(symbol) ? (
-        <p style={{ margin: '8px 0' }}>
+        <button
+        onClick={() => handleFavoriteClick(symbol)}
+        style={{ margin: '8px 0', backgroundColor: 'white', border: '1px solid lightslategray'}}
+      >
+      
+        
+        <p style={{ margin: '8px', color:'lightslategray', fontWeight: 500 }}>
           <span role="img" aria-label="star">
             ⭐️
-          </span>
-          This stock has been favorited!
+          </span>{' '}
+          Stock favorited! Click to unfavorite.
         </p>
+        </button>
       ) : (
-        <button onClick={()=>handleFavoriteClick(symbol)} style={{ margin: '8px 0' }}>Favorite this stock</button>
+        <button
+          onClick={() => handleFavoriteClick(symbol)}
+          style={{ margin: '8px 0' }}
+        >
+          Favorite this stock
+        </button>
       )}
 
       <h4>Opening price: {apiData && apiData['Global Quote']['02. open']}</h4>
