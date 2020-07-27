@@ -6,6 +6,7 @@ export default function Home() {
   const [query, setQuery] = useState('');
 
   const apikey = '2PMRI8QK3GQP6LUL';
+  
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
     query ? query : 'A'
   }&apikey=${apikey}`;
