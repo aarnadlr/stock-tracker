@@ -30,7 +30,13 @@ export default function Home() {
         <label htmlFor="query">Please enter a stock symbol</label>
         <br />
         <input
-          style={{ width: '300px', height: '40px', margin: '8px 0 0 0', padding: '8px', fontSize: '20px'}}
+          style={{
+            width: '300px',
+            height: '40px',
+            margin: '8px 0 0 0',
+            padding: '8px',
+            fontSize: '20px',
+          }}
           value={query}
           onChange={handleInputChange}
           type="text"
@@ -50,9 +56,13 @@ export default function Home() {
       <ul style={{ listStyle: 'none', margin: '16px', padding: 0 }}>
         {apiData &&
           apiData.bestMatches.map((item, index) => (
-            <li style={{ margin: '16px', padding: 0 }} key={index}>
-              {item && item['1. symbol']}
-            </li>
+
+            <Link to={`/${item && item['1. symbol']}`}>
+              <li style={{ margin: '16px', padding: 0 }} key={index}>
+                {item && item['1. symbol']}
+              </li>
+            </Link>
+            
           ))}
       </ul>
     </div>

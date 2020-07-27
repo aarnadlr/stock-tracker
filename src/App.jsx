@@ -4,6 +4,7 @@ import { openOrClosed } from './utils/isOpenOrClosed';
 import Moment from 'react-moment';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home/Home';
+import StockPage from './components/StockPage/StockPage';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         </p>
 
         <Switch>
+
+          <Route path="/:symbol" children={<StockPage />} />
+
           <Route path="/">
             <Home />
           </Route>
