@@ -42,7 +42,7 @@ export default function Home({ favorites }) {
             <span>Your Favorite Stocks:</span>
             <ul style={{ listStyle: 'none', padding: 0 }}>
           {favorites.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index} style={{fontSize:'18px'}} ><strong>{item}</strong></li>
           ))}
         </ul>
         </>

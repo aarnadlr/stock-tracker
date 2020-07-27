@@ -12,10 +12,22 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   const handleFavoriteClick = (symbol)=>{
-    setFavorites([
-      ...favorites,
-      symbol
-    ])
+
+    if(favorites.includes(symbol)){
+
+      setFavorites([
+        ...favorites.filter((item)=>{
+          return item !== symbol
+        })
+      ]);
+
+    }else{
+
+      setFavorites([
+        ...favorites,
+        symbol
+      ]);
+    }
   }
 
   return (
