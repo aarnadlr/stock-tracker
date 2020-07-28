@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function Home({
   apiData,
@@ -114,4 +115,14 @@ export default function Home({
       )}
     </div>
   );
-}
+};
+
+Home.propTypes = {
+  apiData:PropTypes.object,
+  favorites:PropTypes.array,
+  handleFavoriteClick: PropTypes.func,
+  handleInputChange: PropTypes.func,
+  query: PropTypes.string,
+  handleClick: PropTypes.func,
+  handleClearFavorites: PropTypes.func,
+};

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function StockPage({
-  apiData,
-  favorites,
-  handleFavoriteClick,
-}) {
+export default function StockPage({ apiData, favorites, handleFavoriteClick }) {
   let { symbol } = useParams();
 
   const [globalQuoteData, setGlobalQuoteData] = useState();
@@ -36,7 +33,9 @@ export default function StockPage({
         This is the stock page for stock symbol:
       </div>
 
-      <h1 style={{ margin: '40px 0 8px 0' }}>{symbol && symbol.toUpperCase()}</h1>
+      <h1 style={{ margin: '40px 0 8px 0' }}>
+        {symbol && symbol.toUpperCase()}
+      </h1>
 
       {favorites && favorites.includes(symbol) ? (
         <button
@@ -105,4 +104,10 @@ export default function StockPage({
       <Link to="/">Back Home</Link>
     </>
   );
-}
+};
+
+StockPage.propTypes = {
+  apiData:PropTypes.object,
+  favorites:PropTypes.array,
+  handleFavoriteClick: PropTypes.func
+};
