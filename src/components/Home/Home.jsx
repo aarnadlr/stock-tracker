@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Home({
-  saveSelectedItem,
   apiData,
   handleInputChange,
   query,
@@ -88,7 +87,6 @@ export default function Home({
         {apiData &&
           apiData.bestMatches.map((item, index) => (
             <Link
-              onClick={() => saveSelectedItem(item)}
               to={`/${item && item['1. symbol']}`}
               key={index}
               style={{ textDecoration: 'none' }}

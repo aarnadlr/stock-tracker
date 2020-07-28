@@ -9,10 +9,8 @@ import createPersistedState from 'use-persisted-state';
 const usePersistedQueryState = createPersistedState('query');
 const usePersistedApiDataState = createPersistedState('apiData');
 const usePersistedFavoritesState = createPersistedState('favorites');
-const usePersistedSelectedItemState = createPersistedState('selectedItem');
 
 function App() {
-
   const [query, setQuery] = usePersistedQueryState('');
 
   // data fetched on click
@@ -20,8 +18,6 @@ function App() {
 
   // array of stock symbols
   const [favorites, setFavorites] = usePersistedFavoritesState([]);
-
-  const [selectedItem, setSelectedItem] = usePersistedSelectedItemState(null);
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
@@ -57,10 +53,6 @@ function App() {
     setFavorites([]);
   };
 
-  const saveSelectedItem = (item) => {
-    setSelectedItem(item);
-  };
-
   return (
     <Router>
       <div className="App">
@@ -78,7 +70,6 @@ function App() {
             children={
               <StockPage
                 apiData={apiData}
-                selectedItem={selectedItem}
                 favorites={favorites}
                 handleFavoriteClick={handleFavoriteClick}
               />
@@ -87,7 +78,6 @@ function App() {
 
           <Route path="/">
             <Home
-              saveSelectedItem={saveSelectedItem}
               apiData={apiData}
               handleInputChange={handleInputChange}
               query={query}

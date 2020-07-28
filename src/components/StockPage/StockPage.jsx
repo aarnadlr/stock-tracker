@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 
 export default function StockPage({
   apiData,
-  selectedItem,
   favorites,
   handleFavoriteClick,
 }) {
@@ -37,7 +36,7 @@ export default function StockPage({
         This is the stock page for stock symbol:
       </div>
 
-      <h1 style={{ margin: '40px 0 8px 0' }}>{symbol.toUpperCase()}</h1>
+      <h1 style={{ margin: '40px 0 8px 0' }}>{symbol && symbol.toUpperCase()}</h1>
 
       {favorites && favorites.includes(symbol) ? (
         <button
