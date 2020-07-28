@@ -13,7 +13,7 @@ const usePersistedSelectedItemState = createPersistedState('selectedItem');
 
 function App() {
 
-  const [query, setQuery] = usePersistedQueryState(null);
+  const [query, setQuery] = usePersistedQueryState('');
 
   // data fetched on click
   const [apiData, setApiData] = usePersistedApiDataState(null);
@@ -24,7 +24,7 @@ function App() {
   const [selectedItem, setSelectedItem] = usePersistedSelectedItemState(null);
 
   useEffect(()=>{
-    setQuery(null);
+    setQuery('');
     setApiData(null);
   },[]);
 

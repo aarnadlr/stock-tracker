@@ -77,6 +77,9 @@ export default function Home({
           margin: '16px',
           padding: 0,
           fontSize: '20px',
+          display:'flex',
+          flexDirection:'column',
+          alignItems:'center'
         }}
       >
         {apiData &&
@@ -85,8 +88,9 @@ export default function Home({
               onClick={() => saveSelectedItem(item)}
               to={`/${item && item['1. symbol']}`}
               key={index}
+              style={{textDecoration:'none'}}
             >
-              <li style={{ margin: '16px', padding: 0 }}>
+              <li style={{ margin: '0px', padding: '16px', width:'300px', border:'1px solid lightslategray', borderBottom: 0, textDecoration: 'none' }}>
                 {item && item['1. symbol']}
               </li>
             </Link>
