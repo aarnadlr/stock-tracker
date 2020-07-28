@@ -21,7 +21,6 @@ export default function StockPage({
   }, []);
 
   const getCompanyName = (symbol) => {
-
     const selectedObj =
       apiData &&
       apiData.bestMatches &&
@@ -29,7 +28,6 @@ export default function StockPage({
 
     const companyName = selectedObj && selectedObj['2. name'];
 
-    console.log('companyName:', companyName);
     return companyName;
   };
 

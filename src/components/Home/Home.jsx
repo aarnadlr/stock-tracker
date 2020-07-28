@@ -11,7 +11,7 @@ export default function Home({
   handleClearFavorites,
 }) {
   return (
-    <div>
+    <div className="Home">
       <div
         style={{
           width: '200px',
@@ -72,6 +72,7 @@ export default function Home({
       </form>
 
       <ul
+        className={'Home__results'}
         style={{
           listStyle: 'none',
           margin: '16px',

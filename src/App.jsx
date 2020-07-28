@@ -23,10 +23,11 @@ function App() {
 
   const [selectedItem, setSelectedItem] = usePersistedSelectedItemState(null);
 
-  useEffect(()=>{
-    setQuery('');
-    setApiData(null);
-  },[]);
+  // clear values on mount
+  // useEffect(()=>{
+    // setQuery('');
+    // setApiData(null);
+  // },[]);
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
