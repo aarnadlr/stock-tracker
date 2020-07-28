@@ -25,9 +25,11 @@ export default function Home({
             <span>Your Favorite Stocks:</span>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {favorites.map((item, index) => (
-                <li key={index} style={{ fontSize: '20px' }}>
-                  <strong>{item}</strong>
-                </li>
+                <Link key={index} to={`/${item}`}>
+                  <li style={{ fontSize: '20px' }}>
+                    <strong>{item}</strong>
+                  </li>
+                </Link>
               ))}
             </ul>
           </>
@@ -38,7 +40,7 @@ export default function Home({
 
       {favorites && favorites.length >= 1 && (
         <button onClick={handleClearFavorites} style={{ fontSize: '13px' }}>
-          tap here to clear your favorites
+          Clear your favorites
         </button>
       )}
 
@@ -78,9 +80,9 @@ export default function Home({
           margin: '16px',
           padding: 0,
           fontSize: '20px',
-          display:'flex',
-          flexDirection:'column',
-          alignItems:'center'
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         {apiData &&
@@ -89,9 +91,18 @@ export default function Home({
               onClick={() => saveSelectedItem(item)}
               to={`/${item && item['1. symbol']}`}
               key={index}
-              style={{textDecoration:'none'}}
+              style={{ textDecoration: 'none' }}
             >
-              <li style={{ margin: '0px', padding: '16px', width:'300px', border:'1px solid lightslategray', borderBottom: 0, textDecoration: 'none' }}>
+              <li
+                style={{
+                  margin: '0px',
+                  padding: '16px',
+                  width: '300px',
+                  border: '1px solid lightslategray',
+                  borderBottom: 0,
+                  textDecoration: 'none',
+                }}
+              >
                 {item && item['1. symbol']}
               </li>
             </Link>

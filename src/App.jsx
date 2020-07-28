@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { openOrClosed } from './utils/isOpenOrClosed';
 import Moment from 'react-moment';
@@ -22,12 +22,6 @@ function App() {
   const [favorites, setFavorites] = usePersistedFavoritesState([]);
 
   const [selectedItem, setSelectedItem] = usePersistedSelectedItemState(null);
-
-  // clear values on mount
-  // useEffect(()=>{
-    // setQuery('');
-    // setApiData(null);
-  // },[]);
 
   const apikey = '2PMRI8QK3GQP6LUL';
 
