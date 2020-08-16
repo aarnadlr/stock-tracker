@@ -10,11 +10,9 @@ const usePersistedQueryState = createPersistedState('query');
 const usePersistedApiDataState = createPersistedState('apiData');
 const usePersistedFavoritesState = createPersistedState('favorites');
 
+const apikey = '2PMRI8QK3GQP6LUL';
 
 function App() {
-  
-  const apikey = '2PMRI8QK3GQP6LUL';
-
   
   // user text input
   const [query, setQuery] = usePersistedQueryState('');
@@ -49,18 +47,24 @@ function App() {
   };
 
 
+  // when user clicks button to Favorite / Unfavorite, add or remove to favorites 
   const handleFavoriteClick = (symbol) => {
+
+    // if it's already favorited, filter that stock out
     if (favorites && favorites.includes(symbol)) {
       setFavorites([
+        // only return stocks which are not this specific stock
         ...favorites.filter((item) => {
           return item !== symbol;
         }),
       ]);
     } else {
+      // If its not already in Favorites, add it
       setFavorites([...favorites, symbol]);
     }
   };
 
+  // when user clicks "Clear your favorites" button
   const handleClearFavorites = () => {
     setFavorites([]);
   };
@@ -73,6 +77,7 @@ function App() {
         <div style={{ backgroundColor: '#eff3f6', padding: '16px', margin: 0 }}>
           Today is{' '}
           <strong>
+            {/* render today's day of the week */}
             <Moment date={Date.now()} format="dddd" />
           </strong>{' '}
           and the market is <strong>{openOrClosed}</strong>

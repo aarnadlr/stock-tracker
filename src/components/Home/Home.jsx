@@ -20,6 +20,8 @@ export default function Home({
           margin: '16px auto',
         }}
       >
+
+        {/* if there are favorite stocks in the favorites array, list them out */}
         {favorites && favorites.length >= 1 ? (
           <>
             <span>Your Favorite Stocks:</span>
@@ -34,16 +36,22 @@ export default function Home({
             </ul>
           </>
         ) : (
+
+          // if the favorites array is empty, render this guidance
           <span>Your Favorite Stocks will appear here</span>
         )}
       </div>
 
+
+      {/* show this 'clear' button only if there are items in the favorites array */}
       {favorites && favorites.length >= 1 && (
         <button onClick={handleClearFavorites} style={{ fontSize: '13px' }}>
           Clear your favorites
         </button>
       )}
 
+
+      {/* form with an input and submit button  */}
       <form style={{ padding: '48px 0 0 0' }}>
         <label htmlFor="query">
           Please enter a stock symbol. Filtered results will appear below.
@@ -57,7 +65,9 @@ export default function Home({
             padding: '8px',
             fontSize: '20px',
           }}
+          // user text input passed down from state, for render here inside input
           value={query}
+          // when user types, grab user input and save to state
           onChange={handleInputChange}
           type="text"
           name="query"
@@ -65,6 +75,7 @@ export default function Home({
         />
         <br />
         <button
+          // when user clicks submit, make API request. Save API response to state
           onClick={handleClick}
           style={{ width: '300px', height: '40px', margin: '8px 0 0 0' }}
           type="submit"
@@ -85,6 +96,7 @@ export default function Home({
           alignItems: 'center',
         }}
       >
+        {/* if an API request has been made, show the stock results based on the user's query */}
         {apiData &&
           apiData.bestMatches.map((item, index) => (
             <Link
@@ -102,12 +114,14 @@ export default function Home({
                   textDecoration: 'none',
                 }}
               >
+                {/* render stock symbol  */}
                 {item && item['1. symbol']}
               </li>
             </Link>
           ))}
       </ul>
 
+      {/* if there are no results, render an error message */}
       {apiData && apiData.bestMatches.length <= 0 && (
         <p style={{ fontWeight: 600, color: 'red' }}>
           Error. Your query returned no results.{' '}
