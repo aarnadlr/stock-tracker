@@ -10,32 +10,44 @@ const usePersistedQueryState = createPersistedState('query');
 const usePersistedApiDataState = createPersistedState('apiData');
 const usePersistedFavoritesState = createPersistedState('favorites');
 
+
 function App() {
-  const [query, setQuery] = usePersistedQueryState('');
-
-  // data fetched on click
-  const [apiData, setApiData] = usePersistedApiDataState(null);
-
-  // array of stock symbols
-  const [favorites, setFavorites] = usePersistedFavoritesState([]);
-
+  
   const apikey = '2PMRI8QK3GQP6LUL';
 
+  
+  // user text input
+  const [query, setQuery] = usePersistedQueryState('');
+
+
+  // user text value populates the API query
   const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${
     query ? query : '123456'
   }&apikey=${apikey}`;
 
+
+  // data fetched on click, saved here
+  const [apiData, setApiData] = usePersistedApiDataState(null);
+
+
+  // array of stock symbols
+  const [favorites, setFavorites] = usePersistedFavoritesState([]);
+
+
+  // user text input saved to `query` state
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
+
+  // when user clicks submit, make API request. Save response to state
   const handleClick = (e) => {
     e.preventDefault();
-
     fetch(url)
       .then((res) => res.json())
       .then((data) => setApiData(data));
   };
+
 
   const handleFavoriteClick = (symbol) => {
     if (favorites && favorites.includes(symbol)) {
@@ -56,15 +68,18 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <p style={{ backgroundColor: '#eff3f6', padding: '16px', margin: 0 }}>
+
+        {/* NAVBAR ON ALL RENDERED ROUTES */}
+        <div style={{ backgroundColor: '#eff3f6', padding: '16px', margin: 0 }}>
           Today is{' '}
           <strong>
             <Moment date={Date.now()} format="dddd" />
           </strong>{' '}
           and the market is <strong>{openOrClosed}</strong>
-        </p>
+        </div>
 
         <Switch>
+          {/* individual dynamic routes for each stock */}
           <Route
             path="/:symbol"
             children={
@@ -75,14 +90,20 @@ function App() {
               />
             }
           />
-
+          {/* default: homepage */}
           <Route path="/">
             <Home
-              apiData={apiData}
+              // grab user input and save to state
               handleInputChange={handleInputChange}
+              // user text input passed down from state, for render inside input
               query={query}
+              // response from API
+              apiData={apiData}
+              // func to call on click
               handleClick={handleClick}
+              // array of favorited stock symbols
               favorites={favorites}
+              // func to clear array of favorites values
               handleClearFavorites={handleClearFavorites}
             />
           </Route>
