@@ -2,30 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+const apikey = '2PMRI8QK3GQP6LUL';
+
 export default function StockPage({ apiData, favorites, handleFavoriteClick }) {
+  
+  // read the stock symbol the user selected, for making second API call, and for render
   let { symbol } = useParams();
 
+  // save the API response here
   const [globalQuoteData, setGlobalQuoteData] = useState();
 
-  const apikey = '2PMRI8QK3GQP6LUL';
 
+  // on mount, make API call #2 for the stock's price data
   useEffect(() => {
     const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setGlobalQuoteData(data));
+      // eslint-disable-next-line
   }, []);
 
-  const getCompanyName = (symbol) => {
-    const selectedObj =
-      apiData &&
-      apiData.bestMatches &&
-      apiData.bestMatches.find((item) => item['1. symbol'] === symbol);
 
+  // Get the company name by using the stock symbol
+  const getCompanyName = (symbol) => {
+
+    // use the stock symbol to find the matching company object in the API response
+    const selectedObj =
+      apiData.bestMatches?.find((item) => item['1. symbol'] === symbol);
+
+    // read the company name from the matching object
     const companyName = selectedObj && selectedObj['2. name'];
 
     return companyName;
   };
+
 
   return (
     <>
@@ -34,9 +44,12 @@ export default function StockPage({ apiData, favorites, handleFavoriteClick }) {
       </div>
 
       <h1 style={{ margin: '40px 0 8px 0' }}>
+
+        {/* display the user-selected stock symbol */}
         {symbol && symbol.toUpperCase()}
       </h1>
 
+      {/* if the stock has been favorited, show the Unfavorite button */}
       {favorites && favorites.includes(symbol) ? (
         <button
           onClick={() => handleFavoriteClick(symbol)}
@@ -55,6 +68,8 @@ export default function StockPage({ apiData, favorites, handleFavoriteClick }) {
           Favorited! Click to unfavorite.
         </button>
       ) : (
+
+        // if the stock has not been favorited, show the Favorite button
         <button
           onClick={() => handleFavoriteClick(symbol)}
           style={{
@@ -71,32 +86,29 @@ export default function StockPage({ apiData, favorites, handleFavoriteClick }) {
       )}
 
       <p style={{ margin: '40px 0 0 0' }}>
-        {/* Full Company Name: <strong>{selectedItem && selectedItem['2. name']}</strong> */}
-        {/* Full Company Name: <strong>{getCompanyName()}</strong> */}
+
+        {/* render company name */}
         Full Company Name: <strong>{getCompanyName(symbol)}</strong>
       </p>
+
       <p>
         Opening price:{' '}
         <strong>
-          {globalQuoteData &&
-            globalQuoteData['Global Quote'] &&
-            globalQuoteData['Global Quote']['02. open']}
+          {globalQuoteData?.['Global Quote']?.['02. open']}
         </strong>
       </p>
+
       <p>
         Current price:{' '}
         <strong>
-          {globalQuoteData &&
-            globalQuoteData['Global Quote'] &&
-            globalQuoteData['Global Quote']['05. price']}
+          {globalQuoteData?.['Global Quote']?.['05. price']}
         </strong>
       </p>
+
       <p>
         Previous closing price:{' '}
         <strong>
-          {globalQuoteData &&
-            globalQuoteData['Global Quote'] &&
-            globalQuoteData['Global Quote']['08. previous close']}
+          {globalQuoteData?.['Global Quote']?.['08. previous close']}
         </strong>
       </p>
 

@@ -84,17 +84,22 @@ function App() {
         </div>
 
         <Switch>
+
           {/* individual dynamic routes for each stock */}
           <Route
             path="/:symbol"
             children={
               <StockPage
+                // response from API request
                 apiData={apiData}
+                // array of favorited stock symbols, for conditional button rendering
                 favorites={favorites}
+                // func to call when user clicks button to Favorite / Unfavorite, add or remove to favorites
                 handleFavoriteClick={handleFavoriteClick}
               />
             }
           />
+          
           {/* default: homepage */}
           <Route path="/">
             <Home
@@ -102,7 +107,7 @@ function App() {
               handleInputChange={handleInputChange}
               // user text input passed down from state, for render inside input
               query={query}
-              // response from API
+              // response from API request
               apiData={apiData}
               // func to call on click
               handleClick={handleClick}

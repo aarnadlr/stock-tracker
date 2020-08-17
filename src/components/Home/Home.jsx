@@ -27,11 +27,14 @@ export default function Home({
             <span>Your Favorite Stocks:</span>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {favorites.map((item, index) => (
+
+                // Each favorited stock symbol is a link to the relevant matching stock page.
                 <Link key={index} to={`/${item}`}>
                   <li style={{ fontSize: '20px' }}>
                     <strong>{item}</strong>
                   </li>
                 </Link>
+
               ))}
             </ul>
           </>
@@ -97,10 +100,12 @@ export default function Home({
         }}
       >
         {/* if an API request has been made, show the stock results based on the user's query */}
-        {apiData &&
-          apiData.bestMatches.map((item, index) => (
+        { apiData?.bestMatches.map((item, index) => (
+
+            // Each list item is a clickable link to the relevant matching stock page.
             <Link
-              to={`/${item && item['1. symbol']}`}
+              // the dynamic route is the value of whichever stock
+              to={`/${item?.['1. symbol']}`}
               key={index}
               style={{ textDecoration: 'none' }}
             >
