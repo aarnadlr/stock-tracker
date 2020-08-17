@@ -13,25 +13,27 @@ function dateObjWithAssignedTime(d) {
   // ["9", "30", "AM"]
   let parts = d.split(/:|\s/);
 
+  let date  = new Date();
+  
   // Convert to military time (0 to 24 o'clock) if pm
   // pluck the last string and check if PM
   if (parts.pop().toLowerCase() === 'pm') {
     // If pm, take the hour and add 12 to make it military time
     // 16    =          4 + 12
-    parts[0] = +parts[0] + 12;
+    parts[0] = (+parts[0]) + 12;
   }
 
   // ["9", "30", "AM"]
   // pluck/remove first string (hours) and set the hour
-  now.setHours(+parts.shift());
+  date.setHours(+parts.shift());
 
   // ["30", "AM"]
   // pluck/remove first string (now minutes) and set the minutes
-  now.setMinutes(+parts.shift());
+  date.setMinutes(+parts.shift());
 
   // date object now has the time we assigned for opening/closing
   // ie 'Sun Aug 16 2020 09:30 GMT-0400 (Eastern Daylight Time)'
-  return now;
+  return date;
 }
 
 
